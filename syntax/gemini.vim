@@ -1,33 +1,46 @@
 " Vim syntax file
 " Language:     text/gemini
 " Maintainer:   ΠRMD <pirmd@users.noreply.github.com>
-" Filenames:    *.gemini
-" Last Change:  2021-01-02
+" Filenames:    *.gemini, *.gmi
+" Last Change:  2021-01-03
 
 if exists("b:current_syntax")
     finish
 endif
 
-syn match geminiHeader /^#\{1,3}[^#].*$/
+"
+" ---+ Syntax definition -------------------------------------------------------
+syn region geminiHeader matchgroup=geminiHeaderMarker start=/^#\{1,3}[^#]/ end=/$/ oneline
 
-syn match geminiLinkStart /^=>/ nextgroup=geminiLinkUrl skipwhite
-syn match geminiLinkUrl   /\S\+/ contained nextgroup=geminiLinkTitle skipwhite
-syn match geminiLinkTitle /.*$/ contained
+syn match geminiLinkMarker /^=>/ nextgroup=geminiLinkURL skipwhite
+syn match geminiLinkURL    /\S\+/ contains=@NoSpell contained nextgroup=geminiLinkTitle skipwhite
+syn match geminiLinkTitle  /.*$/ contained
 
-syn region geminiBlockQuote matchgroup=geminiBlockQuoteMarker start=/^>/ end=/$/
+syn region geminiPreformatted matchgroup=geminiPreformattedDelimiter start=/^```/ end=/^```/ contains=@NoSpell
+"TODO: add geminiPreformattedAlt
 
-syn match geminiListItemMarker /^\*/
+syn region geminiBlock matchgroup=geminiQuoteMarker start=/^>/ end=/$/ oneline
 
-syn region geminiCode matchgroup=geminiCodeDelimiter start=/^```/ end=/^```/
+syn match geminiListItemMarker /^\*/ display
 
+
+"
+" ---+ Highlight definition ----------------------------------------------------
 hi def link geminiHeader           Title
-hi def link geminiLinkStart        Todo
-hi def link geminiLinkUrl          Underlined
-hi def link geminiLinkTitle        Comment
-hi def link geminiBlockQuote       Special
-hi def link geminiBlockQuoteMarker Identifier
-hi def link geminiListItemMarker   Identifier
-hi def link geminiCodeDelimiter    Delimiter
-hi def link geminiCode             Statement
+hi def link geminiHeaderMarker     Identifier
 
+hi def link geminiLinkTitle        String
+hi def link geminiLinkURL          Underlined
+hi def link geminiLinkMarker       Identifier
+
+hi def link geminiPreformatted             String
+hi def link geminiPreformattedDelimiter    Delimiter
+
+hi def link geminiQuote            Comment
+hi def link geminiQuoteMarker      Identifier
+
+hi def link geminiListItemMarker   Identifier
+
+"
+" ---+ We're done --------------------------------------------------------------
 let b:current_syntax = "gemini"

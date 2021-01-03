@@ -22,14 +22,20 @@ Format for `text/gemini`is pretty straightforward, current highlighting supports
 ## This would be an H2
 ### This would be an H3
 
+=> gemini://example.org/
+=> gemini://example.org/ An example link
+=> gemini://example.org/foo Another example link at the same host
+=>gemini://example.org/bar Yet another example link at the same host
+=> foo/bar/baz.txt  A relative link
+=>  gopher://example.org:70/1 A gopher link
 => https://github.com/pirmd/gemini.vim I'm a link to useful resources.
 
-> This line will show as a block-quote
+Preformatted toggle lines start and end with lines containing three back-ticks (```)
 
-* This is the first list item.
+> This line will show as a quote
+
+* This is a list item.
 * This is another list item.
-
-Pre-formatted blocks start and end with lines containing three back-ticks (```)
 
 Anything else is just normal paragraph text
 ```
